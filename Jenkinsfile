@@ -36,7 +36,7 @@ pipeline {
             steps {
                 // Run unit tests
               script {
-                docker.build("npmapp:dev", "Dockerfile")
+                docker.build("npmapp:dev")
               }
             }
         }
