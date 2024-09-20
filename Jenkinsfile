@@ -1,92 +1,42 @@
 pipeline {
-  agent any
-  tools {nodejs "node"}
+    agent any
+    tools { nodejs "node" }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the source code from GitHub or other VCS
                 git branch: 'main', url: 'https://github.com/Petrosyan-Sahak/cicd-pipeline'
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                // Install dependencies (for Node.js apps)
                 sh 'npm install'
             }
         }
         
         stage('Build') {
             steps {
-                // Build the app (for example, transpile, compile, etc.)
                 sh 'npm run build'
             }
         }
         
         stage('Test') {
             steps {
-                // Run unit tests
                 sh 'npm test'
             }
         }
 
-      pipeline {
-  agent any
-  tools {nodejs "node"}
-
-    stages {
-        stage('Checkout') {
+        stage('Docker_Image') {
             steps {
-                // Checkout the source code from GitHub or other VCS
-                git branch: 'main', url: 'https://github.com/Petrosyan-Sahak/cicd-pipeline'
-            }
-        }
-        
-        stage('Install Dependencies') {
-            steps {
-                // Install dependencies (for Node.js apps)
-                sh 'npm install'
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                // Build the app (for example, transpile, compile, etc.)
-                sh 'npm run build'
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                // Run unit tests
-                sh 'npm test'
+                sh 'docker build -t npmapp:main -f Dockerfile .'
             }
         }
 
-      stage('Docker_Image') {
+        stage('Deploy_Docker') {
             steps {
-                // Run unit tests
-              script {
-                docker.build("npmapp:main", "Dockerfile")
-              }
+                sh 'docker run -d -p 3000:3000 npmapp:main'
             }
         }
-      stage('Deploy_Docker') {
-            steps {
-                // Run unit tests
-              script {
-              docker.image('npmapp:main').withRun('-p 3000:3000')
-              }
-            }
-        }
-
-
-    
-  }
-}
-
-
-    
-  }
+    }
 }
