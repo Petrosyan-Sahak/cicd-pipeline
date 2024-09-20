@@ -35,13 +35,17 @@ pipeline {
       stage('Docker_Image') {
             steps {
                 // Run unit tests
+              script {
                 docker.build("npmapp:dev", "Dockerfile")
+              }
             }
         }
       stage('Deploy_Docker') {
             steps {
                 // Run unit tests
+              script {
               docker.image('npmapp:dev').withRun('-p 3001:3001')
+              }
             }
         }
 
