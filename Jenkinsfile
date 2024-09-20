@@ -44,7 +44,7 @@ pipeline {
             steps {
                 // Run unit tests
               script {
-              docker.image('npmapp:dev').withRun('-p 3001:3001')
+              docker.image('npmapp:dev').withRun('-p 3001:3000')
               }
             }
         }
