@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the source code from GitHub or other VCS
-                git branch: 'main', url: 'https://github.com/Petrosyan-Sahak/cicd-pipeline'
+                git branch: 'dev', url: 'https://github.com/Petrosyan-Sahak/cicd-pipeline'
             }
         }
         
