@@ -28,6 +28,7 @@ pipeline {
             steps {
                 // Run unit tests
                 sh 'npm test'
+                sh 'echo "in the dev" '
             }
         }
 
